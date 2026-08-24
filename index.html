@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Loadout</title>
+<title>Code Recycle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -393,8 +393,8 @@ h1,h2,h3,h4{margin:0; font-family:var(--font-display); font-weight:800; line-hei
 
 <div class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="#/" aria-label="Loadout home">
-      <span class="mark">L</span>Loadout<span class="tag">beta</span>
+    <a class="brand" href="#/" aria-label="Code Recycle home">
+      <span class="mark">&#8635;</span>Code Recycle<span class="tag">beta</span>
     </a>
     <nav class="nav hideM">
       <a href="#/browse" data-nav="browse">Browse</a>
@@ -469,7 +469,7 @@ const USERS = {
   atlas:{h:"atlas", name:"Atlas Ito", bio:"Data & forecasting. Charts that don't lie and models that ship.", followers:1670, following:203, hue:170},
   wren:{h:"wren", name:"Wren Okafor", bio:"Motion + media pipelines. Video, 3D, and the glue between them.", followers:2480, following:96, hue:330},
   dev:{h:"deploydeck", name:"DeployDeck", bio:"Infra automation for people who'd rather be building.", followers:1210, following:44, hue:245, org:true},
-  loadout:{h:"loadout", name:"Loadout Picks", bio:"Curated skill collections for how people actually work.", followers:14200, following:0, hue:214, org:true},
+  loadout:{h:"loadout", name:"Code Recycle Picks", bio:"Curated skill collections for how people actually work.", followers:14200, following:0, hue:214, org:true},
 };
 
 const SKILLS = [
@@ -1025,7 +1025,7 @@ function tabOverview(sk){
     <h3>How you'd invoke it</h3>
     <p>Once installed, trigger it in plain language. It fires on requests like:</p>
     <ul>${sk.ex.map(e=>`<li><code>${esc(e)}</code></li>`).join("")}</ul>
-    <h3>Why it's on Loadout</h3>
+    <h3>Why it's on Code Recycle</h3>
     <p>${esc(sk.name)} ships as a single, self-contained skill package with <b>${sk.tests} tests</b> and a held, hashed copy of the exact bytes you install. Every test is mutation-checked (we reintroduce the defect it guards against and confirm the test catches it), so the count isn't a vanity number, it's the amount of guaranteed behavior you're buying. If you'd rather build this from scratch, budget roughly <b>${sk.rebuild}</b> of your own tokens getting an agent to the same place.</p>
   </div>`;
 }
@@ -1055,14 +1055,14 @@ function installBlock(sk,t){
   const path = t==="cc" ? `~/.claude/skills/${sk.id}/SKILL.md`
     : t==="cx" ? `~/.codex/skills/${sk.id}/SKILL.md`
     : t==="cur" ? `.cursor/rules/${sk.id}.md`
-    : `mcp: loadout/${sk.id}`;
+    : `mcp: coderecycle/${sk.id}`;
   const cmd = t==="mcp"
-    ? `npx @loadout/mcp add ${sk.id}`
-    : `mkdir -p ${path.replace(/\/[^/]+$/,'')} && \\\n  curl -fsSL https://loadout.dev/s/${sk.id}/raw > ${path}`;
+    ? `npx @coderecycle/mcp add ${sk.id}`
+    : `mkdir -p ${path.replace(/\/[^/]+$/,'')} && \\\n  curl -fsSL https://coderecycle.ai/s/${sk.id}/raw > ${path}`;
   const note = t==="cc" ? "Restart Claude Code (or run /skills) and it's available."
     : t==="cx" ? "Codex picks it up from ~/.codex/skills on next run."
     : t==="cur" ? "Cursor loads .cursor/rules automatically."
-    : "Adds a Loadout MCP tool your agent can call.";
+    : "Adds a Code Recycle MCP tool your agent can call.";
   return `<div class="codeblock">
     <div class="codeblock-top"><span class="fn">${esc(t==='mcp'?'terminal':path)}</span>
       <button class="copybtn" data-copy="${esc(cmd)}" onclick="copyText(this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy command</button>
@@ -1255,7 +1255,7 @@ function viewBuild(id){
   const more=SHOWCASE.filter(x=>x.by===pr.by && x.id!==pr.id);
   return `<div class="wrap pagepad">
     <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-faint);margin-bottom:20px">
-      <a href="#/community" style="color:var(--text-dim)">Community</a> / Built with Loadout / ${esc(pr.title)}
+      <a href="#/community" style="color:var(--text-dim)">Community</a> / Built with Code Recycle / ${esc(pr.title)}
     </div>
     <div class="build-hero">
       <div class="build-cov"><canvas data-mock="${pr.id}" data-hex="${hex}"></canvas></div>
@@ -1303,7 +1303,7 @@ function viewCommunity(){
       <p class="muted" style="max-width:60ch;margin-top:10px">Follow creators to see what they publish, favorite, and curate. Every skill here was made by someone. Follow the makers whose judgment you trust.</p>
     </div>
     <div class="section" style="padding-top:0;margin-bottom:12px">
-      <div class="section-head"><h2>Built with Loadout</h2><span class="faint mono" style="font-size:12px">prototypes the community shipped using these skills</span></div>
+      <div class="section-head"><h2>Built with Code Recycle</h2><span class="faint mono" style="font-size:12px">prototypes the community shipped using these skills</span></div>
       <div class="showgrid">${SHOWCASE.map(showcaseCard).join("")}</div>
     </div>
     <div class="two-col-community">
@@ -1329,7 +1329,7 @@ function viewCommunity(){
 }
 
 function footer(){ return `<div class="footer">
-  <span>Loadout · a prototype · skills shown are illustrative</span>
+  <span>Code Recycle · a prototype · skills shown are illustrative</span>
   <span>graphite / brass / verify-teal · Archivo · Hanken Grotesk · IBM Plex Mono</span>
 </div>`; }
 
